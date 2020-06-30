@@ -22,7 +22,8 @@ func PinkFlamingoHandler() http.HandlerFunc {
 			start, err := strconv.Atoi(from)
 			end, err := strconv.Atoi(to)
 			if err != nil {
-				util.HandleError(writer, http.StatusBadRequest, `{"Unable to Marshal"}`)
+				util.HandleError(writer, http.StatusBadRequest, `{"Unable to Convert String to Integer"}`)
+				return
 			}
 			if start < end {
 				result := make([]interface{}, 0)
@@ -41,7 +42,7 @@ func PinkFlamingoHandler() http.HandlerFunc {
 				}
 				b, err := json.Marshal(result)
 				if err != nil {
-					util.HandleError(writer, http.StatusInternalServerError, `{"Unable to Marshal`)
+					util.HandleError(writer, http.StatusInternalServerError, `{"Unable to Marshal Result`)
 				}
 				util.HandleSuccess(writer, b)
 			} else {

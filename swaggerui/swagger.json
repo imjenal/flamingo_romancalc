@@ -1,0 +1,114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Deeptrace Assignment"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "APIs"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/pinkflamingo?from={start}&to={end}": {
+      "get": {
+        "tags": [
+          "APIs"
+        ],
+        "summary": "Fizz Buzz with Pink Flamingo",
+        "description": "",
+        "operationId": "pinkFlamingo",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "start",
+            "description": "Start Value",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "end",
+            "description": "End Value",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "example": ""
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "example": "Invalid Request Body"
+          }
+        }
+      }
+    },
+    "/romancalc": {
+      "post": {
+        "tags": [
+          "APIs"
+        ],
+        "summary": "Roman Calculator",
+        "operationId": "romanCalculator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Expression",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/exprContract"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "example": ""
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "example": "Userdata Json Parse Error"
+          }
+        }
+      }
+      }
+  },
+  "definitions": {
+    "exprContract": {
+      "description": "Request details for Expression",
+      "properties": {
+        "expr": {
+          "type": "string",
+          "description": "Expression",
+          "example": "II / VIII / II"
+        }
+      },
+      "required": [
+        "expr"
+      ]
+    }
+  },
+  "externalDocs": {
+    "description": "Deeptrace",
+    "url": "https://www.deeptracelabs.com"
+  }
+}

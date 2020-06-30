@@ -17,7 +17,7 @@ func main() {
 	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
 
 	router.Handle("/pinkflamingo", handler.PinkFlamingoHandler()).Methods(http.MethodGet)
-	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodGet)
+	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodPost)
 
 	fileServer := http.FileServer(http.Dir("./swaggerui/"))
 	router.PathPrefix("/api/").Handler(http.StripPrefix("/api/", fileServer))
