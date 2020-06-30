@@ -16,7 +16,10 @@ func RomanCalculatorHandler() http.HandlerFunc {
 
 		val := request.FormValue(strings.ToLower("value"))
 		if len(val) > 0  {
-			value, _ := strconv.Atoi(val)
+			value, err := strconv.Atoi(val)
+			if err != nil{
+				util.HandleError(writer, http.StatusBadRequest, `{"Unable to Marshal"}`)
+			}
 			result := romancalculator.FromInt(value)
 				util.HandleSuccess(writer, []byte(result))
 			} else {

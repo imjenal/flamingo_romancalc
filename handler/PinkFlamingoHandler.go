@@ -19,16 +19,19 @@ func PinkFlamingoHandler() http.HandlerFunc {
 		to := request.FormValue(strings.ToLower("To"))
 		from := request.FormValue(strings.ToLower("From"))
 		if len(to) > 0 && len(from) > 0 {
-			start, _ := strconv.Atoi(from)
-			end, _ := strconv.Atoi(to)
+			start, err := strconv.Atoi(from)
+			end, err := strconv.Atoi(to)
+			if err != nil {
+				util.HandleError(writer, http.StatusBadRequest, `{"Unable to Marshal"}`)
+			}
 			if start < end {
 				result := make([]interface{}, 0)
-				for i:= start; i <= end;  i++ {
+				for i := start; i <= end; i++ {
 					//6765 pink flamingo
 					fizzBuzz, _ := pinkflamingo.FizzBuzz(i)
-					if  pinkflamingo.IsPinkFlmaingo(i) {
+					if pinkflamingo.IsPinkFlmaingo(i) {
 						result = append(result, "Pink Flamingo")
-					} else if  pinkflamingo.IsFibonacci(i){
+					} else if pinkflamingo.IsFibonacci(i) {
 						result = append(result, "Flamingo")
 					} else if fizzBuzz != "" {
 						result = append(result, fizzBuzz)
@@ -38,7 +41,7 @@ func PinkFlamingoHandler() http.HandlerFunc {
 				}
 				b, err := json.Marshal(result)
 				if err != nil {
-					util.HandleError(writer, http.StatusInternalServerError,`{"Unable to Marshal`)
+					util.HandleError(writer, http.StatusInternalServerError, `{"Unable to Marshal`)
 				}
 				util.HandleSuccess(writer, b)
 			} else {
