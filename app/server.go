@@ -16,8 +16,8 @@ func main() {
 	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
 
-	pinkFlamingoHandler := handler.PinkFlamingoHandler()
-	router.Handle("/pinkflamingo", pinkFlamingoHandler).Methods(http.MethodGet)
+	router.Handle("/pinkflamingo", handler.PinkFlamingoHandler()).Methods(http.MethodGet)
+	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodGet)
 
 	fmt.Println("Application loaded successfully ")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
