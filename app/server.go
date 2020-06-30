@@ -19,6 +19,9 @@ func main() {
 	router.Handle("/pinkflamingo", handler.PinkFlamingoHandler()).Methods(http.MethodGet)
 	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodGet)
 
+	fileServer := http.FileServer(http.Dir("./swaggerui/"))
+	router.PathPrefix("/api/").Handler(http.StripPrefix("/api/", fileServer))
+
 	fmt.Println("Application loaded successfully ")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
 }
