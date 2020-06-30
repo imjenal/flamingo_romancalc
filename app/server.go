@@ -23,5 +23,5 @@ func main() {
 	router.PathPrefix("/api/").Handler(http.StripPrefix("/api/", fileServer))
 
 	fmt.Println("Application loaded successfully ")
-	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
+	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
 }

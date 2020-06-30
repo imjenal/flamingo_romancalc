@@ -30,7 +30,7 @@ func RomanCalculatorHandler() http.HandlerFunc {
 				var expr string
 				res1 := strings.Split(val.Expr, " ")
 				for _, arr := range res1 {
-					if !isOperator(arr) {
+					if !romancalculator.IsOperator(arr) {
 						intResult := romancnv.ToNumber(arr)
 						expr += strconv.Itoa(intResult)
 					} else {
@@ -58,11 +58,3 @@ func RomanCalculatorHandler() http.HandlerFunc {
 	}
 }
 
-func isOperator(op string) bool {
-	switch op {
-	case "(", ")", "*", "/", "+", "-":
-		return true
-	default:
-		return false
-	}
-}

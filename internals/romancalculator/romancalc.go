@@ -15,3 +15,12 @@ func EvaluateinBodmas(expr string) (interface{}, error) {
 	}
 	return result, nil
 }
+
+func IsOperator(op string) bool {
+	switch op {
+	case "(", ")", "*", "/", "+", "-":
+		return true
+	default:
+		return false
+	}
+}
