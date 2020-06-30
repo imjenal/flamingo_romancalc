@@ -2,7 +2,7 @@ package romancalculator
 
 import "testing"
 
-func TestFromInt(t *testing.T) {
+func TestToRoman(t *testing.T) {
 	tests := []struct {
 		name string
 		number int
@@ -62,8 +62,30 @@ func TestFromInt(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := FromInt(tt.number); got != tt.roman {
+			roman := NewRoman()
+			if got := roman.ToRoman(tt.number); got != tt.roman {
 				t.Errorf("FromInt() = %v, want %v", got, tt.roman)
+			}
+		})
+	}
+}
+
+func TestRoman_ToNumber(t *testing.T) {
+	type args struct {
+		n string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := &Roman{}
+			if got := r.ToNumber(tt.args.n); got != tt.want {
+				t.Errorf("ToNumber() = %v, want %v", got, tt.want)
 			}
 		})
 	}
