@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Deeptrace Assignment"
   },
-  "host": "localhost:8080",
+  "host": "localhost:8081",
   "basePath": "/",
   "tags": [
     {
