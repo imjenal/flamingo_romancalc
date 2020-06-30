@@ -16,8 +16,6 @@ func main() {
 	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
 
-
-
 	pinkFlamingoHandler := handler.PinkFlamingoHandler()
 	router.Handle("/pinkflamingo", pinkFlamingoHandler).Methods(http.MethodGet)
 
