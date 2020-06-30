@@ -1,7 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"deeptrace/handler"
+	"fmt"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"log"
+	"net/http"
+)
 
-func main(){
-	fmt.Print("initial commit")
+func main() {
+	router := mux.NewRouter().StrictSlash(true)
+
+	allowedHeaders := handlers.AllowedHeaders([]string{"Origin", "Accept", "Content-Type", "Authorization", "DateUsed", "X-Requested-With"})
+	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
+	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
+
+
+
+	pinkFlamingoHandler := handler.PinkFlamingoHandler()
+	router.Handle("/pinkflamingo", pinkFlamingoHandler).Methods(http.MethodGet)
+
+	fmt.Println("Application loaded successfully ")
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
 }
