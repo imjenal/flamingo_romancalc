@@ -10,6 +10,7 @@ FROM alpine:3.10.2 as deploy
 WORKDIR /deeptrace/
 
 COPY --from=builder /deeptrace/server ./server
+COPY --from=builder /deeptrace/swaggerui ./swaggerui
 
 EXPOSE 8081
 CMD [ "./server"]
