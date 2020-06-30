@@ -1,4 +1,4 @@
-package internals
+package pinkflamingo
 
 func FizzBuzz(n int) (string,bool) {
 	if isMultipleOf(n, 15) {

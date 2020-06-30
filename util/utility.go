@@ -13,9 +13,9 @@ func HandleError(writer http.ResponseWriter, code int, message string) {
 	writer.Write([]byte(message))
 }
 
-func HandleSuccess(writer http.ResponseWriter, message string) {
+func HandleSuccess(writer http.ResponseWriter, message []byte) {
 	writer.WriteHeader(http.StatusOK)
-	writer.Write([]byte(message))
+	writer.Write(message)
 }
 
 func IsEmpty(data string) bool {

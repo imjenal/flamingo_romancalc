@@ -1,6 +1,8 @@
-package internals
+package pinkflamingo
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestFizzBuzz(t *testing.T) {
 	tests := []struct {
