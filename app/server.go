@@ -1,7 +1,6 @@
 package main
 
 import (
-	"deeptrace/handler"
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -16,11 +15,10 @@ func main() {
 	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
 
-	router.Handle("/pinkflamingo", handler.PinkFlamingoHandler()).Methods(http.MethodGet)
-	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodPost)
-
-	fileServer := http.FileServer(http.Dir("./swaggerui/"))
-	router.PathPrefix("/api/").Handler(http.StripPrefix("/api/", fileServer))
+	if err := AddRoutes(router); err != nil {
+		log.Println("Failed adding routes", err.Error())
+		return
+	}
 
 	fmt.Println("Application loaded successfully ")
 	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(router)))
