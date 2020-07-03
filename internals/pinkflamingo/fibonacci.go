@@ -11,5 +11,5 @@ func IsFibonacci(n int) bool {
 
 func isPerfectSquare(n int) bool {
 	sqrt := int(math.Sqrt(float64(n)))
-	return util.IsEquals(sqrt * sqrt, n)
+	return util.IsEquals(sqrt*sqrt, n)
 }

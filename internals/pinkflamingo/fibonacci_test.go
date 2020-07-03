@@ -6,39 +6,39 @@ import (
 
 func TestIsFibonacci(t *testing.T) {
 	tests := []struct {
-		name string
-		n    int
-		want bool
+		name   string
+		number int
+		want   bool
 	}{
 		{
-			name: "when number is 8",
-			n:    8,
-			want: true,
+			name:   "when number is 8",
+			number: 8,
+			want:   true,
 		},
 		{
-			name: "when number is 1",
-			n:    1,
-			want: true,
+			name:   "when number is 1",
+			number: 1,
+			want:   true,
 		},
 		{
-			name: "when number is 16",
-			n:    16,
-			want: false,
+			name:   "when number is 16",
+			number: 16,
+			want:   false,
 		},
 		{
-			name: "when number is 4",
-			n:    4,
-			want: false,
+			name:   "when number is 4",
+			number: 4,
+			want:   false,
 		},
 		{
-			name: "when number is 22",
-			n:    22,
-			want: false,
+			name:   "when number is 22",
+			number: 22,
+			want:   false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := IsFibonacci(tt.n); got != tt.want {
+			if got := IsFibonacci(tt.number); got != tt.want {
 				t.Errorf("IsFibonacci() = %v, want %v", got, tt.want)
 			}
 		})
