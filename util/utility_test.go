@@ -1,6 +1,7 @@
 package util
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -122,7 +123,6 @@ func TestToLowerCase(t *testing.T) {
 }
 
 func TestIsValidNumber(t *testing.T) {
-
 	tests := []struct {
 		name  string
 		input string
@@ -143,6 +143,146 @@ func TestIsValidNumber(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := IsValidData(tt.input); got != tt.want {
 				t.Errorf("IsValidData() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsSmaller(t *testing.T) {
+	type args struct {
+		firstNumber  int
+		secondNumber int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "when firstNumber is 100 and secondNumber is 5",
+			args: args{
+				firstNumber:  100,
+				secondNumber: 5,
+			},
+			want: false,
+		},
+		{
+			name: "when firstNumber is 100 and secondNumber is 200",
+			args: args{
+				firstNumber:  100,
+				secondNumber: 200,
+			},
+			want: true,
+		},
+		{
+			name: "when firstNumber is 100 and secondNumber is 100",
+			args: args{
+				firstNumber:  100,
+				secondNumber: 100,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsSmaller(tt.args.firstNumber, tt.args.secondNumber); got != tt.want {
+				t.Errorf("IsSmaller() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsValidData(t *testing.T) {
+	tests := []struct {
+		name string
+		data string
+		want bool
+	}{
+		{
+			name: "when data is emptyString",
+			data: "",
+			want: false,
+		},
+		{
+			name: "when data contains value",
+			data: "ffd",
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsValidData(tt.data); got != tt.want {
+				t.Errorf("IsValidData() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSplitBySeparator(t *testing.T) {
+	type args struct {
+		data      string
+		separator string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{
+			name: "when data is XY * Y and separator is space",
+			args: args{
+				data:  "XY * Y",
+				separator: " ",
+			},
+			want: []string{"XY", "*", "Y"},
+		},
+		{
+			name: "when data is XY* Y and separator is space",
+			args: args{
+				data:  "XY* Y",
+				separator: " ",
+			},
+			want: []string{"XY*", "Y"},
+		},
+		{
+			name: "when data is XY * Y and separator is comma",
+			args: args{
+				data:  "XY * Y",
+				separator: ",",
+			},
+			want: []string{"XY * Y"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := SplitBySeparator(tt.args.data, tt.args.separator); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SplitBySeparator() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestToString(t *testing.T) {
+	tests := []struct {
+		name string
+		data int
+		want string
+	}{
+		{
+			name: "when data is 1",
+			data: 1,
+			want: "1",
+		},
+		{
+			name: "when data is 100",
+			data: 100,
+			want: "100",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ToString(tt.data); got != tt.want {
+				t.Errorf("ToString() = %v, want %v", got, tt.want)
 			}
 		})
 	}
