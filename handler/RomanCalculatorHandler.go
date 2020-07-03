@@ -5,8 +5,6 @@ import (
 	"deeptrace/util"
 	"encoding/json"
 	"net/http"
-	"strconv"
-	"strings"
 )
 
 type Expression struct {
@@ -17,44 +15,20 @@ func RomanCalculatorHandler() http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		defer util.PanicHandler(writer, request)
 		writer.Header().Set("Content-Type", "application/json")
-
-		var val Expression
-		decoder := json.NewDecoder(request.Body)
-		invalidRequest := decoder.Decode(&val)
-
-		if invalidRequest != nil {
-			util.HandleError(writer, http.StatusBadRequest, "Invalid request body")
+		requestValue, invalidRequestBody := decodeRequestBody(request)
+		if invalidRequestBody != nil {
+			util.Response(writer, http.StatusBadRequest, "Invalid request body")
 		} else {
-			if len(val.Expr) > 0 {
-				romancnv := romancalculator.NewRoman()
-				var expr string
-				res1 := strings.Split(val.Expr, " ")
-				for _, arr := range res1 {
-					if !romancalculator.IsOperator(arr) {
-						intResult := romancnv.ToNumber(arr)
-						expr += strconv.Itoa(intResult)
-					} else {
-						expr += arr
-					}
-				}
-				result, err := romancalculator.EvaluateinBodmas(expr)
-				if err != nil {
-					util.HandleError(writer, http.StatusBadRequest, `{"Evaluation error"}`)
-				}
-
-				integerResult := int(result.(float64))
-				if integerResult > 0 {
-					romanResult := romancnv.ToRoman(integerResult)
-					util.HandleSuccess(writer, []byte(romanResult))
-				} else {
-					util.HandleSuccess(writer, []byte("Unable to perform calculation"))
-				}
-
-			} else {
-				util.HandleError(writer, http.StatusBadRequest, `{"Please specify a value"}`)
-			}
+			romancalculator.RomanCalculator{}.Execute(writer, requestValue.Expr, "")
 		}
 		defer request.Body.Close()
 	}
 }
 
+func decodeRequestBody(request *http.Request) (Expression, error) {
+	var requestValue Expression
+	decoder := json.NewDecoder(request.Body)
+	invalidRequestBody := decoder.Decode(&requestValue)
+	return requestValue, invalidRequestBody
+
+}
