@@ -19,7 +19,8 @@ func (f FizzBuzzPinkFlamingo) Execute(writer http.ResponseWriter, from, to strin
 	if util.IsSmaller(initialValue, finalValue) {
 		result := make([]interface{}, 0)
 		for i := initialValue; i <= finalValue; i++ {
-			result = computeForEachNumber(i, result)
+			computedValue := computeForEachNumber(i)
+			result = append(result, computedValue)
 		}
 		marshalledResult, err := json.Marshal(result)
 		if err != nil {
@@ -41,16 +42,15 @@ func convertToIntegers(writer http.ResponseWriter, to, from string) (int, int) {
 	return initialValue, finalValue
 }
 
-func computeForEachNumber(i int, result []interface{}) []interface{}{
-	fizzBuzz, _ := FizzBuzz(i)
-	if IsPinkFlmaingo(i) {
-		result = append(result, PINKFLAMINGO)
-	} else if IsFibonacci(i) {
-		result = append(result, FLAMINGO)
+func computeForEachNumber(number int) interface{} {
+	fizzBuzz, _ := FizzBuzz(number)
+	if IsPinkFlamingo(number) {
+		return PINKFLAMINGO
+	} else if IsFibonacci(number) {
+		return FLAMINGO
 	} else if fizzBuzz != "" {
-		result = append(result, fizzBuzz)
+		return  fizzBuzz
 	} else {
-		result = append(result, i)
+		return number
 	}
-	return result
 }
