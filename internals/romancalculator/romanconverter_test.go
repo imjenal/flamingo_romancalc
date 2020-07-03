@@ -71,20 +71,61 @@ func TestToRoman(t *testing.T) {
 }
 
 func TestRoman_ToNumber(t *testing.T) {
-	type args struct {
-		n string
-	}
 	tests := []struct {
 		name string
-		args args
+		roman string
 		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name:"when number is 0",
+			roman:"",
+			want: 0,
+		},
+		{
+			name:"when number is 1",
+			roman:"I",
+			want: 1,
+		},
+		{
+			name:"when number is 1993",
+			roman:"MCMXCIII",
+			want: 1993,
+		},
+		{
+			name:"when number is 666",
+			roman:"DCLXVI",
+			want: 666,
+		},
+		{
+			name:"when number is 444",
+			roman:"CDXLIV",
+			want: 444,
+		},
+		{
+			name:"when number is 555",
+			roman:"DLV",
+			want: 555,
+		},
+		{
+			name:"when number is 999",
+			roman:"CMXCIX",
+			want: 999,
+		},
+		{
+			name:"when number is 1111",
+			roman:"MCXI",
+			want: 1111,
+		},
+		{
+			name:"when number is 2222",
+			roman:"MMCCXXII",
+			want: 2222,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			r := &Roman{}
-			if got := r.ToNumber(tt.args.n); got != tt.want {
+			if got := r.ToNumber(tt.roman); got != tt.want {
 				t.Errorf("ToNumber() = %v, want %v", got, tt.want)
 			}
 		})
