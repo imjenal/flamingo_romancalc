@@ -141,8 +141,8 @@ func TestIsValidNumber(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := IsValidNumber(tt.input); got != tt.want {
-				t.Errorf("IsValidNumber() = %v, want %v", got, tt.want)
+			if got := IsValidData(tt.input); got != tt.want {
+				t.Errorf("IsValidData() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -8,12 +8,12 @@ import (
 	"strings"
 )
 
-func HandleError(writer http.ResponseWriter, code int, message string) {
+func Response(writer http.ResponseWriter, code int, message string) {
 	writer.WriteHeader(code)
 	writer.Write([]byte(message))
 }
 
-func HandleSuccess(writer http.ResponseWriter, message []byte) {
+func ResponseSuccess(writer http.ResponseWriter, message []byte) {
 	writer.WriteHeader(http.StatusOK)
 	writer.Write(message)
 }
@@ -22,13 +22,20 @@ func IsEmpty(data string) bool {
 	return len(data) == 0
 }
 
-
-func IsValidNumber(data string) bool {
+func IsValidData(data string) bool {
 	return len(data) > 0
 }
 
 func IsEquals(input, testInput interface{}) bool {
 	return input == testInput
+}
+
+func IsSmaller(data1, data2 int) bool {
+	return data1 < data2
+}
+
+func SplitBySeparator(data, separator string) []string{
+	return strings.Split(data, separator)
 }
 
 func ToInteger(data string) (int, error) {
@@ -37,6 +44,10 @@ func ToInteger(data string) (int, error) {
 		return 0, err
 	}
 	return value, nil
+}
+
+func ToString(data int) (string) {
+	return strconv.Itoa(data)
 }
 
 func ToLowerCase(data string) string {
