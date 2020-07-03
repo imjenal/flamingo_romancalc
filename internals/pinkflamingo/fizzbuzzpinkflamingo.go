@@ -3,7 +3,6 @@ package pinkflamingo
 import (
 	"deeptrace/util"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -46,17 +45,12 @@ func computeForEachNumber(i int, result []interface{}) []interface{}{
 	fizzBuzz, _ := FizzBuzz(i)
 	if IsPinkFlmaingo(i) {
 		result = append(result, PINKFLAMINGO)
-		fmt.Println(PINKFLAMINGO)
 	} else if IsFibonacci(i) {
 		result = append(result, FLAMINGO)
-		fmt.Println(FLAMINGO)
 	} else if fizzBuzz != "" {
 		result = append(result, fizzBuzz)
-		fmt.Println(fizzBuzz)
 	} else {
 		result = append(result, i)
-		fmt.Println(i)
 	}
-	fmt.Println(i)
 	return result
 }
