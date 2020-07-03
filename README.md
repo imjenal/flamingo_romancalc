@@ -7,7 +7,7 @@ A web service implementing FizzBuzz with a Pink Flamingo and Roman Calculator
 
 docker build -t deeptrace .
 
-docker run -d 8081:8081 deeptrace
+docker run -p 8081:8081 deeptrace
 
 # How To Test
  
