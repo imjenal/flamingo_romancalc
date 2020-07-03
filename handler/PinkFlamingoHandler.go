@@ -4,10 +4,7 @@ import (
 	"deeptrace/internals/pinkflamingo"
 	"deeptrace/util"
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
-	"strings"
 )
 
 func PinkFlamingoHandler() http.HandlerFunc {
@@ -16,18 +13,18 @@ func PinkFlamingoHandler() http.HandlerFunc {
 		defer request.Body.Close()
 		writer.Header().Set("Content-Type", "application/json")
 
-		to := request.FormValue(strings.ToLower("To"))
-		from := request.FormValue(strings.ToLower("From"))
-		if len(to) > 0 && len(from) > 0 {
-			start, err := strconv.Atoi(from)
-			end, err := strconv.Atoi(to)
+		to := request.FormValue(util.ToLowerCase("To"))
+		from := request.FormValue(util.ToLowerCase("From"))
+		if util.IsValidNumber(to)  && util.IsValidNumber(from) {
+			initialValue, err := util.ToInteger(from)
+			finalValue, err := util.ToInteger(to)
 			if err != nil {
 				util.HandleError(writer, http.StatusBadRequest, `{"Unable to Convert String to Integer"}`)
 				return
 			}
-			if start < end {
+			if initialValue < finalValue {
 				result := make([]interface{}, 0)
-				for i := start; i <= end; i++ {
+				for i := initialValue; i <= finalValue; i++ {
 					//6765 pink flamingo
 					fizzBuzz, _ := pinkflamingo.FizzBuzz(i)
 					if pinkflamingo.IsPinkFlmaingo(i) {
@@ -37,7 +34,7 @@ func PinkFlamingoHandler() http.HandlerFunc {
 					} else if fizzBuzz != "" {
 						result = append(result, fizzBuzz)
 					} else {
-						fmt.Println(i)
+						result = append(result, i)
 					}
 				}
 				b, err := json.Marshal(result)

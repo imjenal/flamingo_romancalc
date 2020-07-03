@@ -3,8 +3,8 @@ package util
 import (
 	"errors"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -22,19 +22,25 @@ func IsEmpty(data string) bool {
 	return len(data) == 0
 }
 
+func IsValidNumber(data string) bool {
+	return len(data) > 0
+}
+
 func IsEquals(input, testInput string) bool {
 	return input == testInput
 }
 
-func GetUserID(request *http.Request) string {
-	for k, userId := range mux.Vars(request) {
-		if strings.EqualFold(k, "userId") {
-			return userId
-		}
+func ToInteger(data string) (int, error) {
+	value, err := strconv.Atoi(data)
+	if err != nil {
+		return 0, err
 	}
-	return ""
+	return value, nil
 }
 
+func ToLowerCase(data string) string {
+	return strings.ToLower(data)
+}
 
 func PanicHandler(w http.ResponseWriter, r *http.Request) {
 	if r := recover(); r != nil {
