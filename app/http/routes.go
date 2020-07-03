@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func AddRoutes(router *mux.Router) error{
+func AddRoutes(router *mux.Router) error {
 	router.Handle("/pinkflamingo", handler.PinkFlamingoHandler()).Methods(http.MethodGet)
 	router.Handle("/romancalc", handler.RomanCalculatorHandler()).Methods(http.MethodPost)
 	fileServer := http.FileServer(http.Dir("./swaggerui/"))
