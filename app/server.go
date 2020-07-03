@@ -1,6 +1,7 @@
 package main
 
 import (
+	deeptraceHttp "deeptrace/app/http"
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -15,7 +16,7 @@ func main() {
 	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	allowedMethods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions})
 
-	if err := AddRoutes(router); err != nil {
+	if err := deeptraceHttp.AddRoutes(router); err != nil {
 		log.Println("Failed adding routes", err.Error())
 		return
 	}
