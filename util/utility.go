@@ -22,11 +22,12 @@ func IsEmpty(data string) bool {
 	return len(data) == 0
 }
 
+
 func IsValidNumber(data string) bool {
 	return len(data) > 0
 }
 
-func IsEquals(input, testInput string) bool {
+func IsEquals(input, testInput interface{}) bool {
 	return input == testInput
 }
 

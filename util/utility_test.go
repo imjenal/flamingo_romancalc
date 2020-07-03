@@ -6,8 +6,8 @@ import (
 
 func TestIsEquals(t *testing.T) {
 	tests := []struct {
-		input     string
-		testInput string
+		input     interface{}
+		testInput interface{}
 		expected  bool
 	}{
 		{
@@ -19,7 +19,18 @@ func TestIsEquals(t *testing.T) {
 			input:     "Hello",
 			testInput: "hello",
 			expected:  false,
-		}}
+		},
+		{
+			input:     1,
+			testInput: 1,
+			expected:  true,
+		},
+		{
+			input:     1,
+			testInput: 12,
+			expected:  false,
+		},
+	}
 
 	for testNumber, test := range tests {
 		actual := IsEquals(test.input, test.testInput)
@@ -54,24 +65,24 @@ func TestIsEmpty(t *testing.T) {
 
 func TestToInteger(t *testing.T) {
 	tests := []struct {
-		name    string
-		input   string
-		want    int
+		name  string
+		input string
+		want  int
 	}{
 		{
-			name:    "when input is 1",
-			input:   "1",
-			want:    1,
+			name:  "when input is 1",
+			input: "1",
+			want:  1,
 		},
 		{
-			name:    "when input is 3",
-			input:   "3",
-			want:    3,
+			name:  "when input is 3",
+			input: "3",
+			want:  3,
 		},
 		{
-			name:    "when input is 4ff",
-			input:   "4ff",
-			want:    0,
+			name:  "when input is 4ff",
+			input: "4ff",
+			want:  0,
 		},
 	}
 	for _, tt := range tests {
@@ -113,9 +124,9 @@ func TestToLowerCase(t *testing.T) {
 func TestIsValidNumber(t *testing.T) {
 
 	tests := []struct {
-		name string
+		name  string
 		input string
-		want bool
+		want  bool
 	}{
 		{
 			name:  "when input is empty",
